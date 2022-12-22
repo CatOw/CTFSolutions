@@ -1,0 +1,2 @@
+/challenge/babysuid_level15
+base64 /flag | base64 -d
