@@ -1,0 +1,2 @@
+/challenge/babysuid_level14
+base32 /flag | base32 -d
