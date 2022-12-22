@@ -1,0 +1,2 @@
+/challenge/babysuid_level11
+od -An -c /flag | tr -d " \n"
